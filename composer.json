@@ -1,0 +1,22 @@
+{
+  "name": "antony/materialize",
+  "description": "Testing materialize framework",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Antony Kalogeropoulos",
+      "email": "anthonykalogeropoulos@gmail.com"
+    }
+  ],
+  "require": {
+    "twig/twig": "~1.0",
+    "swiftmailer/swiftmailer": "^5.4",
+    "vlucas/phpdotenv": "^2.3",
+    "ccampbell/chromephp": "^4.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Judge\\": "app/"
+    }
+  }
+}
