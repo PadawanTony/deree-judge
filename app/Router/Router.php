@@ -59,7 +59,10 @@ class Router
          * in infinite loop
          */
         if ( ($path[strlen($path)-1] === '/') && !($path === '/') ) { //
+            var_dump(($path[strlen($path) - 1]));
+            var_dump($path);
             $newPath = substr($path, 0, -1);
+            var_dump($newPath);
             header("Location: $newPath", true, 302);
             exit;
         }
@@ -124,7 +127,7 @@ class Router
         if ( $found == 0 )
         {
             //Instantiate Controller
-            $controller = 'Material\Controllers\MainController';
+            $controller = "$this->namespace\\Controllers\\MainController";
             $controller = new $controller();
 
             //Call the appropriate method

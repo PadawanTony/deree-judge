@@ -8,6 +8,7 @@ use Judge\Router;
 //Load .env variables
 $dotenv = new Dotenv\Dotenv(__DIR__ . '/../app/');
 $dotenv->load();
+$baseUrl = getenv('BASE_URL');
 
 $router = new Router\Router();
 
@@ -21,7 +22,7 @@ $router->get('/', 'MainController', 'index');
 
 
 
-////See inside $router
+//See inside $router
 //echo "<pre>";
 //print_r($router);
 

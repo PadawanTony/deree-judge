@@ -1,0 +1,18 @@
+.nav-wrapper .brand-logo {
+    padding-left: 30px;
+}
+
+nav ul a {
+    font-size: 1.3rem;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-color: #607d8b;
+}
+
+main {
+    flex: 1 0 auto;
+}

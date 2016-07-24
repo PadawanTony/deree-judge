@@ -13,7 +13,7 @@ class UploadImageService
     {
     }
 
-    public function uploadImage($dir="images/")
+    public function uploadImage($dir="img/")
     {
         // Check if image file is a actual image or fake image
         if ( isset($_POST["submit"]) && isset($_FILES['image']) && !empty($_FILES['image']['name']) ) {
