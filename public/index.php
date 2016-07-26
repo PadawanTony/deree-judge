@@ -15,6 +15,9 @@ $router = new Router\Router();
 /******** GET ********/
 //Public
 $router->get('/', 'MainController', 'index');
+$router->get('/test', 'MainController', 'test');
+$router->get('/carousel', 'MainController', 'carousel');
+$router->get('/professor', 'MainController', 'professor');
 
 
 /******** POST ********/

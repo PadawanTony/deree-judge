@@ -14,9 +14,25 @@ class MainController extends Controller
         echo $this->twig->render('index.twig');
     }
 
+    public function professor()
+    {
+        echo $this->twig->render('professor.twig');
+    }
+
+    public function carousel()
+    {
+        echo $this->twig->render('carousel.twig');
+    }
+
     public function error404()
     {
         echo $this->twig->render('error404.twig');
     }
 
+    public function test()
+    {
+        echo $this->twig->render('test.twig');
+    }
+
+    
 }
