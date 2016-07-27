@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    {{ include('head.twig') }}
+    <title> {% block title %}{% endblock %} </title>
+    {% block head %} {% endblock head %}
+
+</head>
+<body class="w3-light-grey">
+
+{{ include('nav.twig') }}
+{% block content %} {% endblock content %}
+
+
+
+{{ include('footer.twig') }}
+{% block footer %} {% endblock footer %}
+<script>
+{{ include('scripts.twig') }}
+{% block scripts %} {% endblock scripts %}
+</script>
+
+</body>
+</html>

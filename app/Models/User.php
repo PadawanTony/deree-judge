@@ -13,23 +13,24 @@ class User
 {
     protected $myDB;
 
-    protected $username;
+    protected $email;
     protected $password;
     protected $isAdmin;
+    protected $id;
 
-    public function __construct($username, $password)
+    public function __construct($email, $password)
     {
         $this->myDB = new DB();
 
-        $this->setClassVariables($username, $password);
+        $this->setClassVariables($email, $password);
     }
 
     /**
      * @return mixed
      */
-    public function getUsername()
+    public function getEmail()
     {
-        return $this->username;
+        return $this->email;
     }
 
     /**
@@ -48,15 +49,14 @@ class User
         return $this->isAdmin;
     }
 
-    public function setClassVariables($username, $password)
+    public function setClassVariables($email, $password)
     {
-        $user = $this->myDB->getUser($username, $password);
-
-        $user = $user[0];
-
-        $this->username = $user['username'];
-        $this->password = $user['password'];
-        $this->isAdmin = $user['isAdmin'];
+        $user = $this->myDB->getUser($email, $password);
+        
+        $this->id = $user['userID'];
+        $this->email = $user['userEmail'];
+        $this->password = $user['userPassword'];
+        $this->isAdmin = $user['admin'];
     }
 
     public function isAdmin()
@@ -78,7 +78,7 @@ class User
             return true;
         }
 
-        if (isset($_SESSION['user']) && $_SESSION['user'] == $this->getUsername()) {
+        if (isset($_SESSION['user']) && $_SESSION['user'] == $this->getEmail()) {
             return true;
         } else {
             return false;
@@ -101,7 +101,8 @@ class User
         }
 
         //Set $_SESSION variables
-        $_SESSION['user'] = $this->getUsername();
+        $_SESSION['user'] = $this->getEmail();
+        $_SESSION['userID'] = $this->getId();
         $_SESSION['password'] = $this->getPassword();
         $_SESSION['isAdmin'] = $this->getIsAdmin();
 
@@ -133,6 +134,14 @@ class User
         //Unset $_COOKIE variables
         unset($_COOKIE['active']);
         setcookie('active', '', time() - 3600);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
 }

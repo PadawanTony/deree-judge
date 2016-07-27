@@ -1,0 +1,29 @@
+
+    $(document).ready(function () {
+        $(".index-card").on("mouseover", function () {
+            $(this).css({
+                "background-color": "teal",
+                "transition": "background-color 0.5s",
+                " -webkit-transition": "background-color 0.5s"
+            });
+        });
+
+        $(".index-card").on("mouseout", function () {
+            $(this).css({
+                "background-color": "white",
+                "transition": "background-color 0.5s",
+                " -webkit-transition": "background-color 0.5s"
+            });
+        });
+    });
+
+    function w3_open() {
+        document.getElementById("mySidenav").style.display = "block";
+    }
+    function w3_close() {
+        document.getElementById("mySidenav").style.display = "none";
+    }
+
+    $(':radio').change(function () {
+        $('.choice').text(this.value + ' stars');
+    });

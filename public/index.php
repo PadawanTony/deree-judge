@@ -18,10 +18,16 @@ $router->get('/', 'MainController', 'index');
 $router->get('/test', 'MainController', 'test');
 $router->get('/carousel', 'MainController', 'carousel');
 $router->get('/professor', 'MainController', 'professor');
+$router->get('/login', 'MainController', 'login');
+$router->get('/logout', 'MainController', 'logout');
+$router->get('/selectProfessor', 'MainController', 'selectProfessor');
 
 
 /******** POST ********/
 //Public
+$router->post('/login', 'MainController', 'postlogin');
+$router->post('/selectProfessor', 'MainController', 'postSelectProfessor');
+$router->post('/judge', 'MainController', 'postJudge');
 
 
 

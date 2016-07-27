@@ -1,0 +1,86 @@
+{% extends 'master.twig' %}
+
+{% block content %}
+
+<div class="w3-card-4" style="max-width: 900px; margin: 30px auto;">
+
+    <div class="w3-container w3-green">
+        <h2>Fill in the Fields.</h2>
+    </div>
+
+    <form class="w3-container w3-center" action="/judge" method="post">
+
+        <input type="text" name="professorID" value="{{ professor }}" hidden>
+        <br>
+        <div class="w3-label w3-xlarge w3-border-bottom">Eloquent</div>
+        <span class="star-rating w3-margin">
+        <input type="radio" name="eloquent" value="1"><i></i>
+        <input type="radio" name="eloquent" value="2"><i></i>
+        <input type="radio" name="eloquent" value="3"><i></i>
+        <input type="radio" name="eloquent" value="4"><i></i>
+        <input type="radio" name="eloquent" value="5"><i></i>
+        </span>
+        <br>
+        <br>
+        <div class="w3-label w3-xlarge w3-border-bottom">Knowledgeable</div>
+        <span class="star-rating w3-margin">
+        <input type="radio" name="knowledgeable" value="1"><i></i>
+        <input type="radio" name="knowledgeable" value="2"><i></i>
+        <input type="radio" name="knowledgeable" value="3"><i></i>
+        <input type="radio" name="knowledgeable" value="4"><i></i>
+        <input type="radio" name="knowledgeable" value="5"><i></i>
+        </span>
+        <br>
+        <br>
+        <div class="w3-label w3-xlarge w3-border-bottom">Polite and Respectful</div>
+        <span class="star-rating w3-margin">
+        <input type="radio" name="polite" value="1"><i></i>
+        <input type="radio" name="polite" value="2"><i></i>
+        <input type="radio" name="polite" value="3"><i></i>
+        <input type="radio" name="polite" value="4"><i></i>
+        <input type="radio" name="polite" value="5"><i></i>
+        </span>
+        <br>
+        <br>
+        <div class="w3-label w3-xlarge w3-border-bottom">Accessible and Helpful</div>
+        <span class="star-rating w3-margin">
+        <input type="radio" name="helpful" value="1"><i></i>
+        <input type="radio" name="helpful" value="2"><i></i>
+        <input type="radio" name="helpful" value="3"><i></i>
+        <input type="radio" name="helpful" value="4"><i></i>
+        <input type="radio" name="helpful" value="5"><i></i>
+        </span>
+        <br>
+        <br>
+        <div class="w3-label w3-xlarge w3-border-bottom">Prepared and Punctual</div>
+        <span class="star-rating w3-margin">
+        <input type="radio" name="prepared" value="1"><i></i>
+        <input type="radio" name="prepared" value="2"><i></i>
+        <input type="radio" name="prepared" value="3"><i></i>
+        <input type="radio" name="prepared" value="4"><i></i>
+        <input type="radio" name="prepared" value="5"><i></i>
+        </span>
+        <br>
+        <br>
+        <div class="w3-label w3-xlarge w3-border-bottom">Inspiring and Engaging</div>
+        <span class="star-rating w3-margin">
+        <input type="radio" name="inspiring" value="1"><i></i>
+        <input type="radio" name="inspiring" value="2"><i></i>
+        <input type="radio" name="inspiring" value="3"><i></i>
+        <input type="radio" name="inspiring" value="4"><i></i>
+        <input type="radio" name="inspiring" value="5"><i></i>
+        </span>
+        <br>
+        <br>
+
+        <div class="w3-label w3-xlarge w3-border-bottom">Comments</div>
+            <textarea rows="4" class="w3-input" name="comment" placeholder="You comments here.."></textarea>
+        <br>
+        <br>
+        <button class="w3-btn-block w3-blue-grey w3-hover-green w3-xlarge" style="margin: 10px auto;"> Judge! </button>
+
+    </form>
+
+</div>
+
+{% endblock content %}

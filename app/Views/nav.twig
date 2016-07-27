@@ -1,0 +1,34 @@
+<nav class="w3-sidenav w3-light-grey w3-card-2" style="display:none" id="mySidenav">
+    <a href="javascript:void(0)" onclick="w3_close()" class="w3-closenav w3-large">Close &times;</a>
+    <br>
+    <a class="w3-btn w3-light-grey w3-hover-teal w3-large" href="/selectProfessor">Judge!</a>
+    <a class="w3-btn w3-light-grey w3-hover-lime w3-large" href="#">Professors</a>
+    <a class="w3-btn w3-light-grey w3-hover-cyan w3-large" href="#">About</a>
+    <a class="w3-btn w3-light-grey w3-hover-khaki w3-large" href="#">Contact</a>
+    {% if session.user is not null %}
+        <a class="w3-btn w3-light-grey w3-hover-green w3-large" href="/logout">Log-out</a>
+    {% else %}
+        <a class="w3-btn w3-light-grey w3-hover-green w3-large" href="/login">Login</a>
+    {% endif %}
+</nav>
+
+<header class="w3-container w3-teal">
+    <span class="w3-opennav w3-xlarge" onclick="w3_open()">&#9776;</span>
+    {% if session.user is not null %}
+        <div class="w3-right w3-dropdown-hover w3-hide-small">
+            <img src="/img/img_avatar4.png" alt="Avatar" style="max-width:100px;" class="w3-round">
+            <div class="w3-dropdown-content w3-border">
+                <a href="/logout">Log-out</a>
+            </div>
+        </div>
+    {% endif %}
+    <h1 class="w3-center"><a href="/">Deree Judge</a></h1>
+</header>
+
+{% if errorMessage is not null %}
+    {% if success == true %}
+        <h3 style="color: forestgreen; text-align: center">{{ errorMessage }}</h3>
+    {% else %}
+        <h3 style="color: tomato; text-align: center">{{ errorMessage }}</h3>
+    {% endif %}
+{%  endif %}
