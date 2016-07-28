@@ -10,7 +10,7 @@ class Controller
     protected $twig;
     protected $data;
     protected $sector;
-    protected $item;
+    protected $professor;
 
     public function __construct( $data=null )
     {
@@ -19,7 +19,7 @@ class Controller
 
         $this->data = $data;
         $this->sector = $data[1];
-        isset($data[2]) ? $this->item=$data[2] : $this->item=null;
+        isset($data[2]) ? $this->professor=$data[2] : $this->professor=null;
         
         $loader = new Twig_Loader_Filesystem(__DIR__ . '/../Views/');
         $this->twig = new Twig_Environment($loader, array(

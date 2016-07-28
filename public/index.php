@@ -17,17 +17,19 @@ $router = new Router\Router();
 $router->get('/', 'MainController', 'index');
 $router->get('/test', 'MainController', 'test');
 $router->get('/carousel', 'MainController', 'carousel');
-$router->get('/professor', 'MainController', 'professor');
+$router->get('/professor/[-\w\d\?\!\.]+', 'MainController', 'professor');
 $router->get('/login', 'MainController', 'login');
 $router->get('/logout', 'MainController', 'logout');
 $router->get('/selectProfessor', 'MainController', 'selectProfessor');
+$router->get('/selectProfessorToView', 'MainController', 'selectProfessorToView');
 
 
 /******** POST ********/
 //Public
 $router->post('/login', 'MainController', 'postlogin');
 $router->post('/selectProfessor', 'MainController', 'postSelectProfessor');
-$router->post('/judge', 'MainController', 'postJudge');
+$router->post('/judge', 'MainController', 'judge');
+$router->post('/viewProfessor', 'MainController', 'viewProfessor');
 
 
 

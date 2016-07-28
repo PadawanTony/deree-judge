@@ -32,12 +32,12 @@ class MainController extends Controller
         $myDB = new DB();
         $judgmentsTransformer = new JudgmentsTransformer();
 
-        $professor = $myDB->getProfessorByID(97);
+        $professor = $myDB->getProfessorByUrlName($this->professor);
 
-        $judgmentsResults = $myDB->getJudgmentsForProfessorByID(97);
+        $judgmentsResults = $myDB->getJudgmentsForProfessorByID($professor['id']);
         $judgments = $judgmentsTransformer->transformToArrayAndRemoveParentheses($judgmentsResults);
 
-        $comments = $myDB->getCommentsForProfessorByID(97);
+        $comments = $myDB->getCommentsForProfessorByID($professor['id']);
 
         echo $this->twig->render('professor.twig', array('professor'=>$professor, 'judgments'=>$judgments, 'comments'=>$comments));
     }
@@ -105,6 +105,16 @@ class MainController extends Controller
         }
 
     }
+    
+    public function selectProfessorToView()
+    {
+            $myDB = new DB();
+
+            $majors = $myDB->getAllMajors();
+            $professors = $myDB->getAllProfessors();
+            
+            echo $this->twig->render('selectProfessorToView.twig', array('majors'=>$majors, 'professors'=>$professors));
+    }
 
     public function postSelectProfessor()
     {
@@ -113,7 +123,7 @@ class MainController extends Controller
         echo $this->twig->render('judge.twig', array('professorID'=>$professorID));
     }
 
-    public function postJudge()
+    public function judge()
     {
         $myDB = new DB();
 
@@ -128,4 +138,15 @@ class MainController extends Controller
         $this->index($message, $success);
     }
 
+    public function viewProfessor()
+    {
+        $professorID = $_POST['professor'];
+
+        $myDB = new DB();
+        $professor = $myDB->getProfessorByID($professorID);
+        $professorUrlName = $professor['urlName'];
+
+        header("Location: /professor/$professorUrlName", true, 302);
+        exit;
+    }
 }
