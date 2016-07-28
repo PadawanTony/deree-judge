@@ -2,21 +2,43 @@
 <div class="w3-top">
     <ul class="w3-navbar w3-theme-d2 w3-left-align w3-large">
         <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
-            <a class="w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+            <a class="w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);"
+               onclick="openNav()"><i class="fa fa-bars"></i></a>
         </li>
-        <li><a href="/" class="w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>Deree Judge</a></li>
-        <li class="w3-hide-small"><a href="/selectProfessor" class="w3-padding-large w3-hover-white" title="Judge"><i class="fa fa-home"></i>Judge!</a></li>
-        <li class="w3-hide-small"><a href="/selectProfessorToView" class="w3-padding-large w3-hover-white" title="News"><i class="fa fa-globe"></i>Professors</a></li>
-        <li class="w3-hide-small"><a href="#" class="w3-padding-large w3-hover-white" title="Account Settings"><i class="fa fa-user"></i>About</a></li>
-        <li class="w3-hide-small"><a href="#" class="w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope"></i>Contact</a>
-            {% if session.user is not null %}
-        </li><li class="w3-hide-small"><a href="/logout" class="w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope"></i>Log-out</a></li>
-            {% else %}
-                </li><li class="w3-hide-small"><a href="/login" class="w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope"></i>Login</a></li>
-            {% endif %}
+        <a href="/img/flashAnimation.swf">
+            <img src="/img/logo2.png" class="w3-hide-small w3-left w3-border"
+                 style="max-width: 50px; max-height: 50px; opacity: 0.5;">
+        </a>
+        <li>
+            <a href="/" class="w3-padding-large w3-theme-d4">Deree Judge</a>
+        </li>
+        <li class="w3-hide-small">
+            <a href="/selectProfessor" class="w3-padding-large w3-hover-white" title="Judge">Judge!</a>
+        </li>
+        <li class="w3-hide-small">
+            <a href="/selectProfessorToView" class="w3-padding-large w3-hover-white" title="News">Professors</a>
+        </li>
+        <li class="w3-hide-small">
+            <a href="#" class="w3-padding-large w3-hover-white" title="Account Settings">About</a>
+        </li>
+        <li class="w3-hide-small">
+            <a href="#" class="w3-padding-large w3-hover-white" title="Messages">Contact</a>
+        </li>
+        {% if session.user is not null %}
+            <li class="w3-hide-small">
+                <a href="/logout" class="w3-padding-large w3-hover-white" title="Messages">Log-out</a>
+            </li>
+        {% else %}
+            <li class="w3-hide-small"><a href="/login" class="w3-padding-large w3-hover-white" title="Messages">Login</a>
+            </li>
+        {% endif %}
 
         {% if session.user is not null %}
-            <li class="w3-hide-small w3-right"><a href="#" class="w3-padding-small w3-hover-white" title="My Account"><img src="/img/img_avatar2.png" class="w3-round" style="height:40px;width:40px" alt="Avatar"></a></li>
+            <li class="w3-hide-small w3-right">
+                <a href="#" class="w3-padding-small w3-hover-white" title="My Account">
+                    <img src="/img/img_avatar2.png" class="w3-round" style="height:40px;width:40px" alt="Avatar">
+                </a>
+            </li>
         {% endif %}
     </ul>
 </div>
@@ -24,14 +46,26 @@
 <!-- Navbar on small screens -->
 <div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:51px">
     <ul class="w3-navbar w3-left-align w3-large w3-theme">
-        <li><a class="w3-padding-large w3-hover-teal w3-large" href="/selectProfessor">Judge!</a></li>
-        <li><a class="w3-padding-large w3-hover-teal w3-large" href="/selectProfessorToView">Professors!</a></li>
-        <li><a class="w3-padding-large w3-hover-teal w3-large" href="#">About!</a></li>
-        <li><a class="w3-padding-large w3-hover-teal w3-large" href="#">Contact!</a></li>
+        <li>
+            <a class="w3-padding-large w3-hover-teal w3-large" href="/selectProfessor">Judge!</a>
+        </li>
+        <li>
+            <a class="w3-padding-large w3-hover-teal w3-large" href="/selectProfessorToView">Professors!</a>
+        </li>
+        <li>
+            <a class="w3-padding-large w3-hover-teal w3-large" href="#">About!</a>
+        </li>
+        <li>
+            <a class="w3-padding-large w3-hover-teal w3-large" href="#">Contact!</a>
+        </li>
         {% if session.user is not null %}
-        <li><a class="w3-padding-large w3-hover-teal w3-large" href="/logout">Log-out!</a></li>
+            <li>
+                <a class="w3-padding-large w3-hover-teal w3-large" href="/logout">Log-out!</a>
+            </li>
         {% else %}
-        <li><a class="w3-padding-large w3-hover-teal w3-large" href="/login">Login!</a></li>
+            <li>
+                <a class="w3-padding-large w3-hover-teal w3-large" href="/login">Login!</a>
+            </li>
         {% endif %}
     </ul>
 </div>
