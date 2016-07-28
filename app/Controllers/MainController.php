@@ -3,6 +3,8 @@ namespace Judge\Controllers;
 
 use Judge\Database\DB;
 use Judge\Models\User;
+use Judge\Services\InvertNamesToUrl;
+use Judge\Services\ModifyProfessorUrlName;
 use Judge\Transformers\JudgmentsTransformer;
 
 class MainController extends Controller
@@ -85,7 +87,11 @@ class MainController extends Controller
 
     public function test()
     {
-        echo $this->twig->render('materialize_test.twig');
+//        $helper = new ModifyProfessorUrlName();
+
+//        $helper->removeLastDash();
+
+//        echo $this->twig->render('materialize_test.twig');
     }
 
     public function selectProfessor()

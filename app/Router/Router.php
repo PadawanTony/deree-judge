@@ -59,10 +59,10 @@ class Router
          * in infinite loop
          */
         if ( ($path[strlen($path)-1] === '/') && !($path === '/') ) { //
-            var_dump(($path[strlen($path) - 1]));
-            var_dump($path);
+//            var_dump(($path[strlen($path) - 1]));
+//            var_dump($path);
             $newPath = substr($path, 0, -1);
-            var_dump($newPath);
+//            var_dump($newPath);
             header("Location: $newPath", true, 302);
             exit;
         }

@@ -182,4 +182,20 @@ WHERE professors.urlName LIKE :urlName");
         return $result;
     }
 
+    public function updateProfessorUrlByID($id, $urlName)
+    {
+        try {
+            $stmt = $this->conn->prepare("UPDATE ashoka_coursework.professors SET urlName= :urlName WHERE id= :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':urlName', $urlName);
+            $stmt->execute();
+
+            $result = $stmt->rowCount();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+        
+        return $result;
+    }
+
 }
