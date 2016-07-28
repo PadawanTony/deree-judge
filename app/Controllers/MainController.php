@@ -3,6 +3,7 @@ namespace Judge\Controllers;
 
 use Judge\Database\DB;
 use Judge\Models\User;
+use Judge\Transformers\JudgmentsTransformer;
 
 class MainController extends Controller
 {
@@ -28,7 +29,17 @@ class MainController extends Controller
 
     public function professor()
     {
-        echo $this->twig->render('professor.twig');
+        $myDB = new DB();
+        $judgmentsTransformer = new JudgmentsTransformer();
+
+        $professor = $myDB->getProfessorByID(97);
+
+        $judgmentsResults = $myDB->getJudgmentsForProfessorByID(97);
+        $judgments = $judgmentsTransformer->transformToArrayAndRemoveParentheses($judgmentsResults);
+
+        $comments = $myDB->getCommentsForProfessorByID(97);
+
+        echo $this->twig->render('professor.twig', array('professor'=>$professor, 'judgments'=>$judgments, 'comments'=>$comments));
     }
 
     public function login($errorMessage = null)
@@ -97,7 +108,9 @@ class MainController extends Controller
 
     public function postSelectProfessor()
     {
-        echo $this->twig->render('judge.twig');
+        $professorID = $_POST['professor'];
+        
+        echo $this->twig->render('judge.twig', array('professorID'=>$professorID));
     }
 
     public function postJudge()

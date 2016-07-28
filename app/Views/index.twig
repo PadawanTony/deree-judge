@@ -2,44 +2,56 @@
 
 {% block content %}
 
-<div class="w3-container">
-    <div class="w3-row-padding">
+    <div class="w3-container" style="margin-top: 80px;">
+        <div class="w3-row-padding">
 
-        <div class="w3-col s12 m4">
-            <div class="w3-card-4 w3-margin w3-round index-card">
-                <a href="#">
-                    <img src="/img/headshot3.jpg" style="width:100%">
-                    <div class="w3-container w3-center">
-                        <p>View Evaluations!</p>
+            {% if errorMessage is not null %}
+                {% if success == true %}
+                    <div class="w3-container w3-section w3-pale-green w3-leftbar w3-border-green w3-text-theme-d1" style="max-width: 600px; margin: auto;">
+                        <h3>{{ errorMessage }}</h3>
                     </div>
-                </a>
-            </div>
-        </div>
-
-        <div class="w3-col s12 m4">
-            <div class="w3-card-4 w3-margin w3-round index-card">
-                <a href="/selectProfessor">
-                    <img src="/img/headshot3.jpg" style="width:100%">
-                    <div class="w3-container w3-center">
-                        <p>Judge a Professor!</p>
+                {% else %}
+                    <div class="w3-container w3-section w3-pale-red w3-leftbar w3-border-red w3-text-theme-d1" style="max-width: 600px; margin: auto;">
+                        <h3>{{ errorMessage }}</h3>
                     </div>
-                </a>
-            </div>
-        </div>
+                {% endif %}
+            {% endif %}
 
-        <div class="w3-col s12 m4">
-            <div class="w3-card-4 w3-margin w3-round index-card">
-                <a href="#">
-                    <img src="/img/headshot3.jpg" style="width:100%">
-                    <div class="w3-container w3-center">
-                        <p>Add a Professor!</p>
-                    </div>
-                </a>
+            <div class="w3-col s12 m4">
+                <div class="w3-card-4 w3-margin w3-round index-card">
+                    <a href="/professor">
+                        <img src="/img/headshot3.jpg" style="width:100%">
+                        <div class="w3-container w3-center">
+                            <p>View Evaluations!</p>
+                        </div>
+                    </a>
+                </div>
             </div>
-        </div>
 
+            <div class="w3-col s12 m4">
+                <div class="w3-card-4 w3-margin w3-round index-card">
+                    <a href="/selectProfessor">
+                        <img src="/img/headshot3.jpg" style="width:100%">
+                        <div class="w3-container w3-center">
+                            <p>Judge a Professor!</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="w3-col s12 m4">
+                <div class="w3-card-4 w3-margin w3-round index-card">
+                    <a href="#">
+                        <img src="/img/headshot3.jpg" style="width:100%">
+                        <div class="w3-container w3-center">
+                            <p>Add a Professor!</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>
 
 {% endblock content %}
 

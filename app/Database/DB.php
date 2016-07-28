@@ -122,4 +122,47 @@ class DB
         return $errorMessage;
     }
 
+    public function getProfessorByID($id)
+    {
+        $stmt = $this->conn->prepare("
+SELECT * FROM ashoka_coursework.professors
+INNER JOIN ashoka_coursework.majors
+ON professors.majorID=majors.majorID
+WHERE professors.id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch();
+
+        return $result;
+    }
+
+    public function getJudgmentsForProfessorByID($id)
+    {
+        $stmt = $this->conn->prepare("SELECT AVG(eloquent), AVG(knowledgable), AVG(politeAndRespectful), AVG(helpfulAccessibleAndCaring), AVG(preparedAndPunctual), AVG(inspiringAndEngaging) FROM ashoka_coursework.judgments WHERE professorID= :id ;");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch();
+
+        return $result;
+    }
+
+    public function getCommentsForProfessorByID($id)
+    {
+        $stmt = $this->conn->prepare("SELECT comment FROM ashoka_coursework.judgments WHERE professorID=:id ;");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll();
+
+        return $result;
+    }
+
 }
