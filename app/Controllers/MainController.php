@@ -1,6 +1,7 @@
 <?php
 namespace Judge\Controllers;
 
+use ChromePhp;
 use Judge\Database\DB;
 use Judge\Models\User;
 use Judge\Services\InvertNamesToUrl;
@@ -154,5 +155,19 @@ class MainController extends Controller
 
         header("Location: /professor/$professorUrlName", true, 302);
         exit;
+    }
+
+    public function reportComment()
+    {
+        $db = new DB();
+
+        $db->reportCommentByJudgmentID($_POST['id']);
+    }
+
+    public function unreportComment()
+    {
+        $db = new DB();
+
+        $db->unreportCommentByJudgmentID($_POST['id']);
     }
 }

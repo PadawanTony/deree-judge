@@ -86,7 +86,7 @@
                         <button type="button" class="w3-btn w3-theme-l1 w3-margin-bottom"><i
                                     class="fa fa-thumbs-up"></i>  Like
                         </button>
-                        <button type="button" class="w3-btn w3-theme-l4 w3-margin-bottom"><i class="fa fa-flag"></i>
+                        <button type="button" name="reportID" value="{{ comment.judgmentID }}" class="reportID w3-btn w3-theme-l4 w3-margin-bottom"><i class="fa fa-flag"></i>
                              Report
                         </button>
                     </div>
@@ -105,6 +105,43 @@
 
 
     <script>
+        //Report the comment
+        $(document).ready(function(){
+            $(".reportID").click(function(){
+                var $this = $(this);
+
+                if ($this.hasClass( "w3-theme-l4" )){
+                    var request = $.ajax({
+                        url: "/report-comment",
+                        method: "POST",
+                        data: { id : $(this).attr("value") },
+                        success: function() {
+                            $this.toggleClass('w3-theme-l4 w3-red');
+                        },
+                        error: function( jqXHR, textStatus ) {
+                            alert( "Request failed: " + textStatus );
+                        }
+                    });
+                } else {
+                    var request = $.ajax({
+                        url: "/unreport-comment",
+                        method: "POST",
+                        data: { id : $(this).attr("value") },
+                        success: function() {
+                            $this.toggleClass('w3-theme-l4 w3-red');
+                        },
+                        error: function( jqXHR, textStatus ) {
+                            alert( "Request failed: " + textStatus );
+                        }
+                    });
+                }
+
+            });
+        });
+
+
+
+        //Create the radar chart
         var radarChartData = {
             labels: ["Eloquent", "Knowledgeable", "Polite/Respectful", "Helpful/Accessible/Caring", "Prepared/Punctual", "Inspiring/Engaging"],
             datasets: [

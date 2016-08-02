@@ -171,7 +171,7 @@ WHERE professors.urlName LIKE :urlName");
 
     public function getCommentsForProfessorByID($id)
     {
-        $stmt = $this->conn->prepare("SELECT comment FROM ashoka_coursework.judgments WHERE professorID=:id ;");
+        $stmt = $this->conn->prepare("SELECT judgmentID,userID,comment FROM ashoka_coursework.judgments WHERE professorID=:id ;");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
@@ -195,6 +195,36 @@ WHERE professors.urlName LIKE :urlName");
             echo $e->getMessage();
         }
         
+        return $result;
+    }
+
+    public function reportCommentByJudgmentID($id)
+    {
+        try {
+            $stmt = $this->conn->prepare("UPDATE ashoka_coursework.judgments SET reported=reported+1 WHERE judgmentID = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            $result = $stmt->rowCount();
+        } catch (PDOException $e) {
+            $result = $e->getMessage();
+        }
+
+        return $result;
+    }
+
+    public function unreportCommentByJudgmentID($id)
+    {
+        try {
+            $stmt = $this->conn->prepare("UPDATE ashoka_coursework.judgments SET reported=reported-1 WHERE judgmentID = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            $result = $stmt->rowCount();
+        } catch (PDOException $e) {
+            $result = $e->getMessage();
+        }
+
         return $result;
     }
 

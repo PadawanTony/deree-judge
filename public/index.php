@@ -30,6 +30,8 @@ $router->post('/login', 'MainController', 'postlogin');
 $router->post('/selectProfessor', 'MainController', 'postSelectProfessor');
 $router->post('/judge', 'MainController', 'judge');
 $router->post('/viewProfessor', 'MainController', 'viewProfessor');
+$router->post('/report-comment', 'MainController', 'reportComment');
+$router->post('/unreport-comment', 'MainController', 'unreportComment');
 
 
 
