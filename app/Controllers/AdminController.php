@@ -90,4 +90,46 @@ class AdminController extends Controller
         else
             return false;
     }
+
+    public function reviewComments($success=null, $message=null)
+    {
+        if ($this->adminIsLoggedIn()) {
+            $db = new DB();
+
+            $comments = $db->getReportedComments();
+
+            echo $this->twig->render('reviewComments.twig', array('comments'=>$comments, 'success'=>$success, 'message'=>$message));
+        }
+        else {
+            $this->login();
+        }
+    }
+
+    public function postReviewComments()
+    {
+        $result = array();
+        $db = new DB();
+
+        if (isset($_POST['delete'])) {
+            foreach ($_POST['comments'] as $commentID) {
+                $result = $db->deleteCommentByID($commentID);
+                if ($result['success']!=0)
+                    break;
+            }
+        } elseif (isset($_POST['keep'])) {
+            foreach ($_POST['comments'] as $commentID) {
+                $result = $db->unreportCommentByID($commentID);
+                if ($result['success']!=0)
+                    break;
+            }
+        } else {
+            $message = "Something went wrong matey!";
+            $success = 1;
+            $this->reviewComments($success, $message);
+            exit;
+        }
+
+        $this->reviewComments($result['success'], $result['message']);
+
+    }
 }

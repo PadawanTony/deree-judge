@@ -276,4 +276,68 @@ WHERE judgments.professorID = :id");
         return $result;
     }
 
+    public function getReportedComments()
+    {
+        $stmt = $this->conn->prepare("
+SELECT * FROM ashoka_coursework.judgments
+WHERE reported > 0");
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll();
+
+        return $result;
+    }
+
+    public function deleteCommentByID($id)
+    {
+        try {
+            $stmt = $this->conn->prepare("DELETE FROM ashoka_coursework.judgments WHERE judgmentID=:id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            // set the resulting array to associative
+            $count = $stmt->rowCount();
+
+            if ($count > 0) {
+                $result['success'] = 0;
+                $result['message'] = "Comments successfully deleted!";
+            } else {
+                $result['success'] = 1;
+                $result['message'] = "No rows were deleted!";
+            }
+        } catch (PDOException $e) {
+            $result['success'] = 1;
+            $result['message'] = $e->getMessage();
+        }
+
+        return $result;
+    }
+
+    public function unreportCommentByID($id)
+    {
+        try {
+            $stmt = $this->conn->prepare("UPDATE ashoka_coursework.judgments SET reported=0 WHERE judgmentID=:id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            // set the resulting array to associative
+            $count = $stmt->rowCount();
+
+            if ($count > 0) {
+                $result['success'] = 0;
+                $result['message'] = "Comments successfully updated!";
+            } else {
+                $result['success'] = 1;
+                $result['message'] = "No rows were updated!";
+            }
+        } catch (PDOException $e) {
+            $result['success'] = 1;
+            $result['message'] = $e->getMessage();
+        }
+
+        return $result;
+    }
+
 }
