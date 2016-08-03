@@ -108,33 +108,30 @@
         //Report the comment
         $(document).ready(function(){
             $(".reportID").click(function(){
+
                 var $this = $(this);
+                var url, html;
 
                 if ($this.hasClass( "w3-theme-l4" )){
-                    var request = $.ajax({
-                        url: "/report-comment",
-                        method: "POST",
-                        data: { id : $(this).attr("value") },
-                        success: function() {
-                            $this.toggleClass('w3-theme-l4 w3-red');
-                        },
-                        error: function( jqXHR, textStatus ) {
-                            alert( "Request failed: " + textStatus );
-                        }
-                    });
+                    url = "/report-comment";
+                    html = "Reported.";
                 } else {
-                    var request = $.ajax({
-                        url: "/unreport-comment",
-                        method: "POST",
-                        data: { id : $(this).attr("value") },
-                        success: function() {
-                            $this.toggleClass('w3-theme-l4 w3-red');
-                        },
-                        error: function( jqXHR, textStatus ) {
-                            alert( "Request failed: " + textStatus );
-                        }
-                    });
+                    url = "/unreport-comment";
+                    html = "<i class='fa fa-flag'></i> &nbsp;Report";
                 }
+
+                var request = $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: { id : $this.attr("value") },
+                    success: function() {
+                        $this.toggleClass('w3-theme-l4 w3-red');
+                        $this.html(html);
+                    },
+                    error: function( jqXHR, textStatus ) {
+                        alert( "Request failed: " + textStatus );
+                    }
+                });
 
             });
         });
