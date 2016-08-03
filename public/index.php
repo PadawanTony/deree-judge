@@ -29,6 +29,7 @@ $router->get('/getHintForProfessorName', 'MainController', 'getHintForProfessorN
 //Public
 $router->post('/login', 'MainController', 'postlogin');
 $router->post('/selectProfessor', 'MainController', 'postSelectProfessor');
+$router->post('/viewProfessorByName', 'MainController', 'viewProfessorByName');
 $router->post('/selectProfessorByName', 'MainController', 'selectProfessorByName');
 $router->post('/judge', 'MainController', 'judge');
 $router->post('/viewProfessor', 'MainController', 'viewProfessor');

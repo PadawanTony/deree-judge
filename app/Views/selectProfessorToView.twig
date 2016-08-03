@@ -3,6 +3,13 @@
 {% block content %}
 
     <div class="w3-container" style="margin-top: 80px;">
+
+        {% if errorMessage is not null %}
+            <div class="w3-container w3-section w3-pale-red w3-leftbar w3-border-red w3-text-theme-d1" style="max-width: 600px; margin: auto">
+                <h3>{{ errorMessage }}</h3>
+            </div>
+        {% endif %}
+
         <div class="w3-row">
             <div class="w3-card-4" style="max-width: 600px; margin: 30px auto;">
 
@@ -40,7 +47,48 @@
             </div>
         </div>
 
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div class="w3-row">
+            <div class="w3-card-4" style="max-width: 600px; margin: 30px auto;">
+                <header class="w3-container w3-light-grey">
+                    <h2>Or search by name:</h2>
+                </header>
+                <form class="w3-card-4" method="post" action="/viewProfessorByName">
+                    <input type="text" class="w3-input" name="professorName" id="professorName" placeholder="Start typing name" onkeyup="showHint(this.value)"/>
+                    <div id="hint"></div>
+                    <br>
+                    <br>
+                    <button class="w3-btn-block w3-teal w3-xlarge"> Judge! &nbsp;<i class="material-icons w3-xlarge">gavel</i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
     </div>
+
+    <script >
+
+        function showHint(str) {
+            if (str.length == 0) {
+                document.getElementById("hint").innerHTML = "";
+                return;
+            } else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        console.log(xmlhttp.responseText);
+                        document.getElementById("hint").innerHTML = xmlhttp.responseText;
+                    }
+                };
+                xmlhttp.open("GET", "getHintForProfessorName?professorName=" + str, true);
+                xmlhttp.send();
+            }
+        }
+    </script>
 
 {% endblock content %}
 

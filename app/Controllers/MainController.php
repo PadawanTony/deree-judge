@@ -12,7 +12,7 @@ class MainController extends Controller
 {
     protected $user;
 
-    public function __construct($data=null)
+    public function __construct($data = null)
     {
         parent::__construct($data);
 
@@ -21,12 +21,12 @@ class MainController extends Controller
         }
     }
 
-    public function index($message=null, $success=null)
+    public function index($message = null, $success = null)
     {
         if ($message == null) {
             echo $this->twig->render('index.twig');
         } else {
-            echo $this->twig->render('index.twig', array('errorMessage'=>$message, 'success'=>$success));
+            echo $this->twig->render('index.twig', array('errorMessage' => $message, 'success' => $success));
         }
     }
 
@@ -45,7 +45,7 @@ class MainController extends Controller
 
         $comments = $myDB->getCommentsForProfessorByID($professor['id']);
 
-        echo $this->twig->render('professor.twig', array('professor'=>$professor, 'judgments'=>$judgments, 'countOfJudgments'=>$countOfJudgments, 'comments'=>$comments));
+        echo $this->twig->render('professor.twig', array('professor' => $professor, 'judgments' => $judgments, 'countOfJudgments' => $countOfJudgments, 'comments' => $comments));
     }
 
     public function login($errorMessage = null)
@@ -100,16 +100,15 @@ class MainController extends Controller
 
     public function selectProfessor()
     {
-        if (isset($this->user) && $this->user->isLoggedIn() ) {
+        if (isset($this->user) && $this->user->isLoggedIn()) {
 
             $myDB = new DB();
 
             $majors = $myDB->getAllMajors();
             $professors = $myDB->getAllProfessors();
-            
-            echo $this->twig->render('selectProfessor.twig', array('majors'=>$majors, 'professors'=>$professors));
-        }
-        else {
+
+            echo $this->twig->render('selectProfessor.twig', array('majors' => $majors, 'professors' => $professors));
+        } else {
             $errorMessage = "You need to login to continue";
             $this->login($errorMessage);
         }
@@ -123,37 +122,68 @@ class MainController extends Controller
         $professorName = $_POST['professorName'];
         $professor = $db->getProfessorByName($professorName);
 
-        if (isset($professor) && $professor!=false) {
-            echo $this->twig->render('judge.twig', array('professor'=>$professor));
+        if (isset($professor) && $professor != false) {
+            echo $this->twig->render('judge.twig', array('professor' => $professor));
         } else {
             $errorMessage = "Please write the full name correctly.";
-            echo $this->twig->render('selectProfessor.twig', array('errorMessage'=>$errorMessage));
+            echo $this->twig->render('selectProfessor.twig', array('errorMessage' => $errorMessage));
         }
     }
-    
-    public function selectProfessorToView()
-    {
-            $myDB = new DB();
 
-            $majors = $myDB->getAllMajors();
-            $professors = $myDB->getAllProfessors();
-            
-            echo $this->twig->render('selectProfessorToView.twig', array('majors'=>$majors, 'professors'=>$professors));
+    public function selectProfessorToView($errorMessage=null)
+    {
+        $myDB = new DB();
+
+        $majors = $myDB->getAllMajors();
+        $professors = $myDB->getAllProfessors();
+
+        echo $this->twig->render('selectProfessorToView.twig', array('majors' => $majors, 'professors' => $professors, 'errorMessage'=>$errorMessage));
     }
 
     public function postSelectProfessor()
     {
         $db = new DB();
 
-        $professor = $db->getProfessorByID($_POST['professor']);
+        if (isset($_POST['professor'])) {
+            $professor = $db->getProfessorByID($_POST['professor']);
 
-        if (isset($professor) && $professor != false) {
-            echo $this->twig->render('judge.twig', array('professor'=>$professor));
+            if (isset($professor) && $professor != false) {
+                echo $this->twig->render('judge.twig', array('professor' => $professor));
+            } else {
+                $errorMessage = "Make sure you typed the whole name correctly.";
+                echo $this->twig->render('selectProfessor.twig', array('errorMessage' => $errorMessage));
+            }
         } else {
-            var_dump($professor);
+            $errorMessage = "You didn't select any professor!";
+            echo $this->twig->render('selectProfessor.twig', array('errorMessage' => $errorMessage));
         }
 
 
+    }
+
+    public function viewProfessorByName()
+    {
+        $db = new DB();
+
+        $professor = $db->getProfessorByName($_POST['professorName']);
+
+        if (isset($professor) && $professor != false) {
+            $myDB = new DB();
+            $judgmentsTransformer = new JudgmentsTransformer();
+
+            $judgmentsResults = $myDB->getJudgmentsForProfessorByID($professor['id']);
+            $judgments = $judgmentsTransformer->transformToArrayAndRemoveParentheses($judgmentsResults);
+
+            $countOfJudgments = $myDB->getCountOfJudgments($professor['id']);
+            $countOfJudgments = $countOfJudgments['totalCount'];
+
+            $comments = $myDB->getCommentsForProfessorByID($professor['id']);
+
+            echo $this->twig->render('professor.twig', array('professor' => $professor, 'judgments' => $judgments, 'countOfJudgments' => $countOfJudgments, 'comments' => $comments));
+        } else {
+            $errorMessage = "Make sure you typed the whole name correctly.";
+            $this->selectProfessorToView($errorMessage);
+        }
     }
 
     public function judge()
@@ -173,14 +203,20 @@ class MainController extends Controller
 
     public function viewProfessor()
     {
-        $professorID = $_POST['professor'];
+        if (isset($_POST['professor'])) {
 
-        $myDB = new DB();
-        $professor = $myDB->getProfessorByID($professorID);
-        $professorUrlName = $professor['urlName'];
+            $professorID = $_POST['professor'];
 
-        header("Location: /professor/$professorUrlName", true, 302);
-        exit;
+            $myDB = new DB();
+            $professor = $myDB->getProfessorByID($professorID);
+            $professorUrlName = $professor['urlName'];
+
+            header("Location: /professor/$professorUrlName", true, 302);
+            exit;
+        } else {
+            $errorMessage = "You didn't select any professor!";
+            $this->selectProfessorToView($errorMessage);
+        }
     }
 
     public function reportComment()

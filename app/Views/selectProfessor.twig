@@ -73,28 +73,6 @@
     </div>
 
     <script >
-//        /**** Hint for professor name ****/
-//        $(document).ready(function () {
-//            $("#professorName").click(function () {
-//
-//                var $this = $(this);
-//                var url, html;
-//
-//                var request = $.ajax({
-//                    url: "/findHintForProfessorName",
-//                    method: "POST",
-//                    data: {professorName: $this.attr("value")},
-//                    success: function () {
-//                        $("#hint").html()
-//                    },
-//                    error: function (jqXHR, textStatus) {
-//                        alert("Request failed: " + textStatus);
-//                    }
-//                });
-//
-//            });
-//        });
-
         function showHint(str) {
             if (str.length == 0) {
                 document.getElementById("hint").innerHTML = "";
