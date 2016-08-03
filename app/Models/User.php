@@ -56,7 +56,7 @@ class User
         $this->id = $user['userID'];
         $this->email = $user['userEmail'];
         $this->password = $user['userPassword'];
-        $this->isAdmin = $user['admin'];
+        $this->isAdmin = $user['isAdmin'];
     }
 
     public function isAdmin()

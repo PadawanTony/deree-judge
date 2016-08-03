@@ -5,7 +5,6 @@ use ChromePhp;
 use Judge\Database\DB;
 use Judge\Models\User;
 use Judge\Services\InvertNamesToUrl;
-use Judge\Services\ModifyProfessorUrlName;
 use Judge\Transformers\JudgmentsTransformer;
 
 class MainController extends Controller

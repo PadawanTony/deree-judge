@@ -1,0 +1,13 @@
+.btn-default.active, .btn-default:active, .open > .dropdown-toggle.btn-default {
+    color: #333;
+    background-color: lightblue;
+    border-color: #adadad;
+}
+
+.contactSupport {
+    color: limegreen;
+}
+
+.contactSupport:hover {
+    color: darkgreen;
+}

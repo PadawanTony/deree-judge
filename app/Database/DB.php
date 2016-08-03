@@ -275,4 +275,5 @@ WHERE judgments.professorID = :id");
 
         return $result;
     }
+
 }

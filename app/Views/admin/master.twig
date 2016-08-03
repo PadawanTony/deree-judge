@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Dashboard </title>
+    {{ include('head.twig') }}
+    {% block head %}{% endblock head %}
+</head>
+<body class="nav-md">
+
+<div class="container body">
+    <div class="main_container">
+
+        {{ include('sidebar-nav.twig') }}
+        {{ include('top-nav.twig') }}
+        {% block content %} {% endblock content %}
+        {{ include('footer.twig') }}
+
+    </div>
+</div>
+
+{{ include('scripts.twig') }}
+{% block scripts %} {% endblock scripts %}
+
+</body>
+</html>

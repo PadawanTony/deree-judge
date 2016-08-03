@@ -23,6 +23,11 @@ $router->get('/logout', 'MainController', 'logout');
 $router->get('/selectProfessor', 'MainController', 'selectProfessor');
 $router->get('/selectProfessorToView', 'MainController', 'selectProfessorToView');
 $router->get('/getHintForProfessorName', 'MainController', 'getHintForProfessorName');
+//Admin
+$router->get('/admin/dashboard', 'AdminController', 'dashboard');
+$router->get('/admin/dashboard/reviewComments', 'AdminController', 'reviewComments');
+$router->get('/admin/login', 'AdminController', 'login');
+$router->get('/admin/logout', 'AdminController', 'logout');
 
 
 /******** POST ********/
@@ -35,6 +40,9 @@ $router->post('/judge', 'MainController', 'judge');
 $router->post('/viewProfessor', 'MainController', 'viewProfessor');
 $router->post('/report-comment', 'MainController', 'reportComment');
 $router->post('/unreport-comment', 'MainController', 'unreportComment');
+//Admin
+$router->post('/admin/login', 'AdminController', 'postLogin');
+
 
 
 
