@@ -228,4 +228,51 @@ WHERE professors.urlName LIKE :urlName");
         return $result;
     }
 
+    public function findProfessorByName($theName)
+    {
+        $stmt = $this->conn->prepare("
+SELECT * FROM ashoka_coursework.professors
+INNER JOIN ashoka_coursework.majors
+ON professors.majorID=majors.majorID
+WHERE professors.name LIKE '%$theName%'");
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll();
+
+        return $result;
+    }
+
+    public function getProfessorByName($theName)
+    {
+        $stmt = $this->conn->prepare("
+SELECT * FROM ashoka_coursework.professors
+INNER JOIN ashoka_coursework.majors
+ON professors.majorID=majors.majorID
+WHERE professors.name LIKE :theName");
+        $stmt->bindParam(':theName', $theName);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch();
+
+        return $result;
+    }
+
+    public function getCountOfJudgments($profID)
+    {
+        $stmt = $this->conn->prepare("
+SELECT Count(*) AS totalCount FROM ashoka_coursework.judgments
+WHERE judgments.professorID = :id");
+        $stmt->bindParam(':id', $profID);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch();
+
+        return $result;
+    }
 }

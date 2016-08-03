@@ -22,12 +22,14 @@ $router->get('/login', 'MainController', 'login');
 $router->get('/logout', 'MainController', 'logout');
 $router->get('/selectProfessor', 'MainController', 'selectProfessor');
 $router->get('/selectProfessorToView', 'MainController', 'selectProfessorToView');
+$router->get('/getHintForProfessorName', 'MainController', 'getHintForProfessorName');
 
 
 /******** POST ********/
 //Public
 $router->post('/login', 'MainController', 'postlogin');
 $router->post('/selectProfessor', 'MainController', 'postSelectProfessor');
+$router->post('/selectProfessorByName', 'MainController', 'selectProfessorByName');
 $router->post('/judge', 'MainController', 'judge');
 $router->post('/viewProfessor', 'MainController', 'viewProfessor');
 $router->post('/report-comment', 'MainController', 'reportComment');

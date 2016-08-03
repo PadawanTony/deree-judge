@@ -40,9 +40,12 @@ class MainController extends Controller
         $judgmentsResults = $myDB->getJudgmentsForProfessorByID($professor['id']);
         $judgments = $judgmentsTransformer->transformToArrayAndRemoveParentheses($judgmentsResults);
 
+        $countOfJudgments = $myDB->getCountOfJudgments($professor['id']);
+        $countOfJudgments = $countOfJudgments['totalCount'];
+
         $comments = $myDB->getCommentsForProfessorByID($professor['id']);
 
-        echo $this->twig->render('professor.twig', array('professor'=>$professor, 'judgments'=>$judgments, 'comments'=>$comments));
+        echo $this->twig->render('professor.twig', array('professor'=>$professor, 'judgments'=>$judgments, 'countOfJudgments'=>$countOfJudgments, 'comments'=>$comments));
     }
 
     public function login($errorMessage = null)
@@ -112,6 +115,21 @@ class MainController extends Controller
         }
 
     }
+
+    public function selectProfessorByName()
+    {
+        $db = new DB();
+
+        $professorName = $_POST['professorName'];
+        $professor = $db->getProfessorByName($professorName);
+
+        if (isset($professor) && $professor!=false) {
+            echo $this->twig->render('judge.twig', array('professor'=>$professor));
+        } else {
+            $errorMessage = "Please write the full name correctly.";
+            echo $this->twig->render('selectProfessor.twig', array('errorMessage'=>$errorMessage));
+        }
+    }
     
     public function selectProfessorToView()
     {
@@ -125,9 +143,17 @@ class MainController extends Controller
 
     public function postSelectProfessor()
     {
-        $professorID = $_POST['professor'];
-        
-        echo $this->twig->render('judge.twig', array('professorID'=>$professorID));
+        $db = new DB();
+
+        $professor = $db->getProfessorByID($_POST['professor']);
+
+        if (isset($professor) && $professor != false) {
+            echo $this->twig->render('judge.twig', array('professor'=>$professor));
+        } else {
+            var_dump($professor);
+        }
+
+
     }
 
     public function judge()
@@ -169,5 +195,21 @@ class MainController extends Controller
         $db = new DB();
 
         $db->unreportCommentByJudgmentID($_POST['id']);
+    }
+
+    public function getHintForProfessorName()
+    {
+        $db = new DB();
+        $output = "";
+
+        $result = $db->findProfessorByName($_GET['professorName']);
+
+        if (isset($result)) {
+            foreach ($result as $prof) {
+                $output .= $prof['name'] . " - " . $prof['majorName'] . "<br>";
+            }
+        }
+
+        echo $output;
     }
 }

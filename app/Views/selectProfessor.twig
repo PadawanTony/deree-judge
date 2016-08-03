@@ -2,23 +2,30 @@
 
 {% block content %}
 
-<div class="w3-container" style="margin-top: 80px;">
-    <div class="w3-row">
+    <div class="w3-container" style="margin-top: 80px;">
+
+        {% if errorMessage is not null %}
+            <div class="w3-container w3-section w3-pale-red w3-leftbar w3-border-red w3-text-theme-d1" style="max-width: 600px; margin: auto">
+                <h3>{{ errorMessage }}</h3>
+            </div>
+        {% endif %}
+
+        <div class="w3-row">
             <div class="w3-card-4" style="max-width: 600px; margin: 30px auto;">
 
                 <header class="w3-container w3-light-grey">
                     <h2>First, select the department.</h2>
                 </header>
 
-                    <select class="w3-select w3-round" id="major" name="major" >
-                        <option value="" disabled selected>Choose department:</option>
-                        {% for major in majors %}
+                <select class="w3-select w3-round" id="major" name="major">
+                    <option value="" disabled selected>Choose department:</option>
+                    {% for major in majors %}
                         <option value="{{ major.majorID }}">{{ major.majorName }}</option>
-                        {% endfor %}
-                    </select>
-                    <br>
-                    <br>
-                    <br>
+                    {% endfor %}
+                </select>
+                <br>
+                <br>
+                <br>
 
                 <header class="w3-container w3-light-grey">
                     <h2>Then, select the professor.</h2>
@@ -28,7 +35,8 @@
                     <select class="w3-select w3-border" id="professor" name="professor">
                         <option value="" disabled selected>Choose professor:</option>
                         {% for professor in professors %}
-                            <option class="major-{{ professor.majorID }}" value="{{ professor.id }}">{{ professor.name }}</option>
+                            <option class="major-{{ professor.majorID }}"
+                                    value="{{ professor.id }}">{{ professor.name }}</option>
                         {% endfor %}
                     </select>
                     <br>
@@ -38,35 +46,97 @@
                     </button>
                 </form>
 
+            </div>
         </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div class="w3-row">
+            <div class="w3-card-4" style="max-width: 600px; margin: 30px auto;">
+                <header class="w3-container w3-light-grey">
+                    <h2>Or search by name:</h2>
+                </header>
+                <form class="w3-card-4" method="post" action="/selectProfessorByName">
+                    <input type="text" class="w3-input" name="professorName" id="professorName" placeholder="Start typing name" onkeyup="showHint(this.value)"/>
+                    <div id="hint"></div>
+                    <br>
+                    <br>
+                    <button class="w3-btn-block w3-teal w3-xlarge"> Judge! &nbsp;<i class="material-icons w3-xlarge">gavel</i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
     </div>
 
-</div>
+    <script >
+//        /**** Hint for professor name ****/
+//        $(document).ready(function () {
+//            $("#professorName").click(function () {
+//
+//                var $this = $(this);
+//                var url, html;
+//
+//                var request = $.ajax({
+//                    url: "/findHintForProfessorName",
+//                    method: "POST",
+//                    data: {professorName: $this.attr("value")},
+//                    success: function () {
+//                        $("#hint").html()
+//                    },
+//                    error: function (jqXHR, textStatus) {
+//                        alert("Request failed: " + textStatus);
+//                    }
+//                });
+//
+//            });
+//        });
+
+        function showHint(str) {
+            if (str.length == 0) {
+                document.getElementById("hint").innerHTML = "";
+                return;
+            } else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        console.log(xmlhttp.responseText);
+                        document.getElementById("hint").innerHTML = xmlhttp.responseText;
+                    }
+                };
+                xmlhttp.open("GET", "getHintForProfessorName?professorName=" + str, true);
+                xmlhttp.send();
+            }
+        }
+    </script>
 
 {% endblock content %}
 
 {% block scripts %}
 
     $( document ).ready(function() {
-        profOptions = $("#professor option"); //store all options as a jquery object
-        $("#professor option").remove(); // remove all options
-//        $("#major").trigger("change"); // trigger change on first select
+    profOptions = $("#professor option"); //store all options as a jquery object
+    $("#professor option").remove(); // remove all options
+    //        $("#major").trigger("change"); // trigger change on first select
     });
     $("#major").on("change", function() { // this event will fire anytime first select is changed
-        var majorID = this.value; // get value of first select
-        $("#professor option").remove(); // remove all professor options
-        profOptions.each( function() { // iterate through options
-            if ($(this).hasClass("major-" + majorID)) { // check if option has matching classname
-                $("#professor").append($(this)); // append option to second select
-            }
-        });
+    var majorID = this.value; // get value of first select
+    $("#professor option").remove(); // remove all professor options
+    profOptions.each( function() { // iterate through options
+    if ($(this).hasClass("major-" + majorID)) { // check if option has matching classname
+    $("#professor").append($(this)); // append option to second select
+    }
+    });
     });
 
     function w3_open() {
-        document.getElementById("mySidenav").style.display = "block";
+    document.getElementById("mySidenav").style.display = "block";
     }
     function w3_close() {
-        document.getElementById("mySidenav").style.display = "none";
+    document.getElementById("mySidenav").style.display = "none";
     }
 
 {% endblock scripts %}

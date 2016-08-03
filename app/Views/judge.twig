@@ -4,13 +4,15 @@
 
 <div class="w3-card-4" style="max-width: 900px; margin: 80px auto;">
 
-    <div class="w3-container w3-green">
-        <h2>Fill in the Fields.</h2>
+    <div class="w3-container w3-theme-l1">
+        <h2>Judging {{ professor.name }}</h2>
+        <hr>
+        <h5>Fill in the fields.</h5>
     </div>
 
     <form class="w3-container w3-center" action="/judge" method="post">
 
-        <input type="text" name="professorID" value="{{ professorID }}" hidden>
+        <input type="text" name="professorID" value="{{ professor.id }}" hidden>
         <br>
         <div class="w3-label w3-xlarge w3-border-bottom">Eloquent</div>
         <span class="star-rating w3-margin">
