@@ -98,7 +98,7 @@ class MainController extends Controller
 //        echo $this->twig->render('materialize_test.twig');
     }
 
-    public function selectProfessor()
+    public function selectProfessor($errorMessage=null)
     {
         if (isset($this->user) && $this->user->isLoggedIn()) {
 
@@ -107,7 +107,7 @@ class MainController extends Controller
             $majors = $myDB->getAllMajors();
             $professors = $myDB->getAllProfessors();
 
-            echo $this->twig->render('selectProfessor.twig', array('majors' => $majors, 'professors' => $professors));
+            echo $this->twig->render('selectProfessor.twig', array('majors' => $majors, 'professors' => $professors, 'errorMessage'=>$errorMessage));
         } else {
             $errorMessage = "You need to login to continue";
             $this->login($errorMessage);
@@ -126,7 +126,7 @@ class MainController extends Controller
             echo $this->twig->render('judge.twig', array('professor' => $professor));
         } else {
             $errorMessage = "Please write the full name correctly.";
-            echo $this->twig->render('selectProfessor.twig', array('errorMessage' => $errorMessage));
+            $this->selectProfessor($errorMessage);
         }
     }
 
@@ -155,7 +155,7 @@ class MainController extends Controller
             }
         } else {
             $errorMessage = "You didn't select any professor!";
-            echo $this->twig->render('selectProfessor.twig', array('errorMessage' => $errorMessage));
+            $this->selectProfessor($errorMessage);
         }
 
 
