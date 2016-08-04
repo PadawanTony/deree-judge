@@ -81,12 +81,13 @@
                         <h4>Anonymous Comment</h4><br>
                         <hr class="w3-clear">
                         <p class="w3-architects w3-large">{{ comment.comment }}</p>
-                        <button type="button" class="w3-btn w3-theme-l1 w3-margin-bottom"><i
+                        <button type="button" name="likeID" value="{{ comment.judgmentID }}" class="likeID w3-btn w3-theme-l1 w3-margin-bottom"><i
                                     class="fa fa-thumbs-up"></i>  Like
                         </button>
                         <button type="button" name="reportID" value="{{ comment.judgmentID }}" class="reportID w3-btn w3-theme-l4 w3-margin-bottom"><i class="fa fa-flag"></i>
                              Report
                         </button>
+                        <div class="w3-tag w3-pale-green w3-round w3-right">Likes: {{ comment.likes }}</div>
                     </div>
                 {% endfor %}
                 <!-- End Middle Column -->
@@ -134,6 +135,36 @@
             });
         });
 
+        /**** Like the comment ****/
+        $(document).ready(function(){
+            $(".likeID").click(function(){
+
+                var $this = $(this);
+                var url, html;
+
+                if ($this.hasClass( "w3-theme-l1" )){
+                    url = "/like-comment";
+                    html = "Liked!";
+                } else {
+                    url = "/unlike-comment";
+                    html = "<i class='fa fa-thumbs-up'></i> &nbsp;Like";
+                }
+
+                var request = $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: { id : $this.attr("value") },
+                    success: function() {
+                        $this.toggleClass('w3-theme-l1 w3-green');
+                        $this.html(html);
+                    },
+                    error: function( jqXHR, textStatus ) {
+                        alert( "Request failed: " + textStatus );
+                    }
+                });
+
+            });
+        });
 
 
         /**** Create the radar chart ****/

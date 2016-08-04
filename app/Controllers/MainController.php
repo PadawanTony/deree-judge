@@ -232,6 +232,20 @@ class MainController extends Controller
         $db->unreportCommentByJudgmentID($_POST['id']);
     }
 
+    public function likeComment()
+    {
+        $db = new DB();
+
+        $db->likeCommentByJudgmentID($_POST['id']);
+    }
+
+    public function unlikeComment()
+    {
+        $db = new DB();
+
+        $db->unlikeCommentByJudgmentID($_POST['id']);
+    }
+
     public function getHintForProfessorName()
     {
         $db = new DB();

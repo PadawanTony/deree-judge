@@ -171,7 +171,11 @@ WHERE professors.urlName LIKE :urlName");
 
     public function getCommentsForProfessorByID($id)
     {
-        $stmt = $this->conn->prepare("SELECT judgmentID,userID,comment FROM ashoka_coursework.judgments WHERE professorID=:id AND comment<>'' ;");
+        $stmt = $this->conn->prepare("
+SELECT judgmentID,userID,comment,likes
+FROM ashoka_coursework.judgments
+WHERE professorID=:id AND comment<>''
+ORDER BY likes DESC ;");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
@@ -335,6 +339,36 @@ WHERE reported > 0");
         } catch (PDOException $e) {
             $result['success'] = 1;
             $result['message'] = $e->getMessage();
+        }
+
+        return $result;
+    }
+
+    public function likeCommentByJudgmentID($id)
+    {
+        try {
+            $stmt = $this->conn->prepare("UPDATE ashoka_coursework.judgments SET likes=likes+1 WHERE judgmentID = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            $result = $stmt->rowCount();
+        } catch (PDOException $e) {
+            $result = $e->getMessage();
+        }
+
+        return $result;
+    }
+
+    public function unlikeCommentByJudgmentID($id)
+    {
+        try {
+            $stmt = $this->conn->prepare("UPDATE ashoka_coursework.judgments SET likes=likes-1 WHERE judgmentID = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            $result = $stmt->rowCount();
+        } catch (PDOException $e) {
+            $result = $e->getMessage();
         }
 
         return $result;

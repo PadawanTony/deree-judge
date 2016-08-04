@@ -40,6 +40,8 @@ $router->post('/judge', 'MainController', 'judge');
 $router->post('/viewProfessor', 'MainController', 'viewProfessor');
 $router->post('/report-comment', 'MainController', 'reportComment');
 $router->post('/unreport-comment', 'MainController', 'unreportComment');
+$router->post('/like-comment', 'MainController', 'likeComment');
+$router->post('/unlike-comment', 'MainController', 'unlikeComment');
 //Admin
 $router->post('/admin/login', 'AdminController', 'postLogin');
 $router->post('/admin/postReviewComments', 'AdminController', 'postReviewComments');
