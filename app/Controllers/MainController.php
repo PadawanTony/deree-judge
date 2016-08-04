@@ -176,18 +176,10 @@ class MainController extends Controller
         $professor = $db->getProfessorByName($_POST['professorName']);
 
         if (isset($professor) && $professor != false) {
-            $myDB = new DB();
-            $judgmentsTransformer = new JudgmentsTransformer();
+            $professorUrlName = $professor['urlName'];
 
-            $judgmentsResults = $myDB->getJudgmentsForProfessorByID($professor['id']);
-            $judgments = $judgmentsTransformer->transformToArrayAndRemoveParentheses($judgmentsResults);
-
-            $countOfJudgments = $myDB->getCountOfJudgments($professor['id']);
-            $countOfJudgments = $countOfJudgments['totalCount'];
-
-            $comments = $myDB->getCommentsForProfessorByID($professor['id']);
-
-            echo $this->twig->render('professor.twig', array('professor' => $professor, 'judgments' => $judgments, 'countOfJudgments' => $countOfJudgments, 'comments' => $comments));
+            header("Location: /professor/$professorUrlName", true, 301);
+            exit;
         } else {
             $errorMessage = "Make sure you typed the whole name correctly.";
             $this->selectProfessorToView($errorMessage);
