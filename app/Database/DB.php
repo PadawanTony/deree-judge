@@ -73,6 +73,36 @@ class DB
         return $result;
     }
 
+    public function registerUser($data)
+    {
+        try {
+            $stmt = $this->conn->prepare("
+INSERT INTO ashoka_coursework.users
+(userEmail, userPassword)
+VALUES (:userEmail, :userPassword)");
+            $stmt->bindParam(':userEmail', $data['email']);
+            $stmt->bindParam(':userPassword', $data['password']);
+            $stmt->execute();
+
+
+            if ($stmt->rowCount() > 0) {
+                $result['success'] = true;
+                $result['message'] = 'Congrats! You are now a Judge. Please Log-in.';
+            } else {
+                $result['success'] = false;
+                $result['message'] = "Something went wrong. Try again or contact support.";
+            }
+
+            return $result;
+
+        } catch (PDOException $e) {
+            $result['success'] = false;
+            $result['message'] = "This email already exists. Make sure you typed the email correctly or contact support.";
+
+            return $result;
+        }
+    }
+
     public function getAllMajors()
     {
         $stmt = $this->conn->prepare("SELECT * FROM ashoka_coursework.majors");

@@ -47,6 +47,27 @@ class MainController extends Controller
         echo $this->twig->render('professor.twig', array('professor' => $professor, 'judgments' => $judgments, 'countOfJudgments' => $countOfJudgments, 'comments' => $comments));
     }
 
+    public function register($errorMessage=null)
+    {
+        if (isset($errorMessage)) {
+            echo $this->twig->render('register.twig', array('errorMessage'=>$errorMessage));
+        } else {
+            echo $this->twig->render('register.twig');
+        }
+    }
+
+    public function postRegister()
+    {
+        $db = new DB();
+
+        $result = $db->registerUser($_POST);
+
+        if ($result['success']==true)
+            $this->index($result['message'], $result['success']);
+        else
+            $this->register($result['message']);
+    }
+
     public function login($errorMessage = null)
     {
         if (isset($errorMessage))
@@ -70,7 +91,7 @@ class MainController extends Controller
 
             $this->user->login(); //set Cookies and Session
 
-            $this->index(); //show selectProfessor page
+            $this->index("Welcome Judge.", true); //show index page
         }
     }
 

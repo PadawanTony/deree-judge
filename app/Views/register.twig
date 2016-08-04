@@ -1,0 +1,59 @@
+{% extends 'master.twig' %}
+
+{% block content %}
+
+    <div class="w3-container" style="margin-top: 80px;">
+        <div class="w3-card-8 w3-animate-zoom" style="max-width:600px; margin: 20px auto;">
+
+            <div class="w3-center"><br>
+                <img src="/img/img_avatar4.png" alt="Avatar" style="width:30%" class="w3-circle w3-margin-top">
+            </div>
+
+            <form class="w3-container" method="post" action="/register">
+                <div class="w3-section">
+                    <div class="w3-tooltip">
+                        <label><b>Email</b></label>
+                        <p class="w3-text w3-khaki w3-animate-opacity w3-medium w3-right" style="margin-top: -15px;">Email needs to end in @acg.edu</p>
+                        <input onkeyup="checkEmail(this.value)" class="w3-input w3-border w3-margin-bottom" type="email" placeholder="Enter Email" name="email" id="email" required>
+
+                    </div>
+
+                    <label><b>Password</b></label>
+                    <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password" required>
+
+                    <button class="w3-btn-block w3-green w3-section w3-padding" type="submit" id="registerBtn">Register!</button>
+
+                    {% if errorMessage is not null %}
+                        <h3 style="color: tomato; text-align: center">{{ errorMessage }}</h3>
+                    {%  endif %}
+
+                </div>
+            </form>
+
+            <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                <button type="reset" class="w3-btn w3-orange">Already a judge? Log In!</button>
+                <span class="w3-right w3-padding w3-hide-small"><a href="#">Forgot password?</a></span>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function isValidEmailAddress(emailAddress) {
+            var pattern = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@acg.edu$/i;
+            return pattern.test(emailAddress);
+        }
+
+        function checkEmail(email){
+            if( !isValidEmailAddress( email ) ) {
+                $("#registerBtn").hide();
+                console.log(email);
+                $("#email").css( "color", "red");
+            } else {
+                $("#registerBtn").show();
+                $("#email").css( "color", "green");
+            }
+        }
+    </script>
+
+{% endblock content %}

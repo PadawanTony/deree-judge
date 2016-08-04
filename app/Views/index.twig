@@ -7,11 +7,11 @@
 
             {% if errorMessage is not null %}
                 {% if success == true %}
-                    <div class="w3-container w3-section w3-pale-green w3-leftbar w3-border-green w3-text-theme-d1" style="max-width: 600px; margin: auto;">
+                    <div class="w3-container w3-section w3-pale-green w3-leftbar w3-border-green w3-text-theme-d1" style="text-align: center; max-width: 600px; margin: auto;">
                         <h3>{{ errorMessage }}</h3>
                     </div>
                 {% else %}
-                    <div class="w3-container w3-section w3-pale-red w3-leftbar w3-border-red w3-text-theme-d1" style="max-width: 600px; margin: auto;">
+                    <div class="w3-container w3-section w3-pale-red w3-leftbar w3-border-red w3-text-theme-d1" style="text-align: center; max-width: 600px; margin: auto;">
                         <h3>{{ errorMessage }}</h3>
                     </div>
                 {% endif %}

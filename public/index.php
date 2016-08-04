@@ -19,6 +19,7 @@ $router->get('/carousel', 'MainController', 'carousel');
 $router->get('/professor/[-\w\d\?\!\.]+', 'MainController', 'professor');
 $router->get('/login', 'MainController', 'login');
 $router->get('/logout', 'MainController', 'logout');
+$router->get('/register', 'MainController', 'register');
 $router->get('/selectProfessor', 'MainController', 'selectProfessor');
 $router->get('/selectProfessorToView', 'MainController', 'selectProfessorToView');
 $router->get('/getHintForProfessorName', 'MainController', 'getHintForProfessorName');
@@ -33,6 +34,7 @@ $router->get('/admin/logout', 'AdminController', 'logout');
 /******** POST ********/
 //Public
 $router->post('/login', 'MainController', 'postlogin');
+$router->post('/register', 'MainController', 'postRegister');
 $router->post('/selectProfessor', 'MainController', 'postSelectProfessor');
 $router->post('/viewProfessorByName', 'MainController', 'viewProfessorByName');
 $router->post('/selectProfessorByName', 'MainController', 'selectProfessorByName');
