@@ -20,6 +20,7 @@ $router->get('/professor/[-\w\d\?\!\.]+', 'MainController', 'professor');
 $router->get('/login', 'MainController', 'login');
 $router->get('/logout', 'MainController', 'logout');
 $router->get('/register', 'MainController', 'register');
+$router->get('/contact', 'MainController', 'contact');
 $router->get('/selectProfessor', 'MainController', 'selectProfessor');
 $router->get('/selectProfessorToView', 'MainController', 'selectProfessorToView');
 $router->get('/getHintForProfessorName', 'MainController', 'getHintForProfessorName');

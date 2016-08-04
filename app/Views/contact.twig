@@ -1,0 +1,50 @@
+{% extends 'master.twig' %}
+
+{% block content %}
+
+    <div class="w3-container" style="margin-top: 80px;">
+        <div class="w3-row-padding">
+
+            {% if errorMessage is not null %}
+                {% if success == true %}
+                    <div class="w3-container w3-section w3-pale-green w3-leftbar w3-border-green w3-text-theme-d1" style="text-align: center; max-width: 600px; margin: auto;">
+                        <h3>{{ errorMessage }}</h3>
+                    </div>
+                {% else %}
+                    <div class="w3-container w3-section w3-pale-red w3-leftbar w3-border-red w3-text-theme-d1" style="text-align: center; max-width: 600px; margin: auto;">
+                        <h3>{{ errorMessage }}</h3>
+                    </div>
+                {% endif %}
+            {% endif %}
+
+
+            <div class="w3-container w3-theme">
+                <h2>Contact Us!</h2>
+                <hr>
+                <p><i class="material-icons">lightbulb_outline</i> Do you have an idea for a new feature?</p>
+                <p><i class="material-icons">bug_report</i> Or did you find a bug? (Oops!)</p>
+            </div>
+
+            <form class="w3-container w3-card-4">
+                <br>
+                    <input class="w3-input" type="email" name="email" required>
+                    <label for="email" class="w3-label w3-validate">Email</label>
+                </p>
+                <p>
+                    <input class="w3-input" type="text" name="subject" required>
+                    <label for="subject" class="w3-label w3-validate">Subject</label>
+                </p>
+                <p>
+                    <textarea rows="4" type="text" class="w3-input" name="message" style="resize: vertical;"></textarea>
+                    <label for="message" class="w3-label w3-validate w3-text-theme">Message</label>
+                </p>
+                <br>
+
+                <p><button type="button" class="w3-btn w3-padding w3-theme-d1" style="width:120px">Send &nbsp; ❯</button></p>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock content %}
+
