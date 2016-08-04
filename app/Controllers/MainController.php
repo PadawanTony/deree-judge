@@ -70,7 +70,7 @@ class MainController extends Controller
 
             $this->user->login(); //set Cookies and Session
 
-            $this->selectProfessor(); //show selectProfessor page
+            $this->index(); //show selectProfessor page
         }
     }
 
@@ -88,16 +88,7 @@ class MainController extends Controller
         echo $this->twig->render('error404.twig');
     }
 
-    public function test()
-    {
-//        $helper = new ModifyProfessorUrlName();
-
-//        $helper->removeLastDash();
-
-//        echo $this->twig->render('materialize_test.twig');
-    }
-
-    public function selectProfessor($errorMessage=null)
+    public function selectProfessor($errorMessage = null)
     {
         if (isset($this->user) && $this->user->isLoggedIn()) {
 
@@ -106,7 +97,7 @@ class MainController extends Controller
             $majors = $myDB->getAllMajors();
             $professors = $myDB->getAllProfessors();
 
-            echo $this->twig->render('selectProfessor.twig', array('majors' => $majors, 'professors' => $professors, 'errorMessage'=>$errorMessage));
+            echo $this->twig->render('selectProfessor.twig', array('majors' => $majors, 'professors' => $professors, 'errorMessage' => $errorMessage));
         } else {
             $errorMessage = "You need to login to continue";
             $this->login($errorMessage);
@@ -129,14 +120,14 @@ class MainController extends Controller
         }
     }
 
-    public function selectProfessorToView($errorMessage=null)
+    public function selectProfessorToView($errorMessage = null)
     {
         $myDB = new DB();
 
         $majors = $myDB->getAllMajors();
         $professors = $myDB->getAllProfessors();
 
-        echo $this->twig->render('selectProfessorToView.twig', array('majors' => $majors, 'professors' => $professors, 'errorMessage'=>$errorMessage));
+        echo $this->twig->render('selectProfessorToView.twig', array('majors' => $majors, 'professors' => $professors, 'errorMessage' => $errorMessage));
     }
 
     public function postSelectProfessor()
@@ -158,6 +149,24 @@ class MainController extends Controller
         }
 
 
+    }
+
+    public function judgeProfessor()
+    {
+        if (isset($this->user) && $this->user->isLoggedIn()) {
+
+            $db = new DB();
+            $urlName = $this->professor;
+
+            $professor = $db->getProfessorByUrlName($urlName);
+
+            if (isset($professor) && $professor != false)
+                echo $this->twig->render('judge.twig', array('professor' => $professor));
+
+        } else {
+            $errorMessage = "You need to login to continue";
+            $this->login($errorMessage);
+        }
     }
 
     public function viewProfessorByName()

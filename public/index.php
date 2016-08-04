@@ -15,7 +15,6 @@ $router = new Router\Router();
 /******** GET ********/
 //Public
 $router->get('/', 'MainController', 'index');
-$router->get('/test', 'MainController', 'test');
 $router->get('/carousel', 'MainController', 'carousel');
 $router->get('/professor/[-\w\d\?\!\.]+', 'MainController', 'professor');
 $router->get('/login', 'MainController', 'login');
@@ -23,6 +22,7 @@ $router->get('/logout', 'MainController', 'logout');
 $router->get('/selectProfessor', 'MainController', 'selectProfessor');
 $router->get('/selectProfessorToView', 'MainController', 'selectProfessorToView');
 $router->get('/getHintForProfessorName', 'MainController', 'getHintForProfessorName');
+$router->get('/professor/[-\w\d\?\!\.]+/judge', 'MainController', 'judgeProfessor');
 //Admin
 $router->get('/admin/dashboard', 'AdminController', 'dashboard');
 $router->get('/admin/dashboard/reviewComments', 'AdminController', 'reviewComments');
