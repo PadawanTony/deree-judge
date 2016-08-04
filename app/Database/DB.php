@@ -171,7 +171,7 @@ WHERE professors.urlName LIKE :urlName");
 
     public function getCommentsForProfessorByID($id)
     {
-        $stmt = $this->conn->prepare("SELECT judgmentID,userID,comment FROM ashoka_coursework.judgments WHERE professorID=:id ;");
+        $stmt = $this->conn->prepare("SELECT judgmentID,userID,comment FROM ashoka_coursework.judgments WHERE professorID=:id AND comment<>'' ;");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
