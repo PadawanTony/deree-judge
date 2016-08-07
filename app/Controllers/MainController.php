@@ -119,6 +119,11 @@ class MainController extends Controller
         $this->contact($result);
     }
 
+    public function about()
+    {
+        echo $this->twig->render('about.twig');
+    }
+
     public function error404()
     {
         echo $this->twig->render('error404.twig');
