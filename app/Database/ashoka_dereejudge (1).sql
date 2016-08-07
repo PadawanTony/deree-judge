@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Aug 07, 2016 at 04:17 PM
+-- Generation Time: Aug 07, 2016 at 04:19 PM
 -- Server version: 5.5.50-cll
 -- PHP Version: 5.4.31
 
@@ -19,13 +19,18 @@ SET time_zone = "+00:00";
 --
 -- Database: `ashoka_dereejudge`
 --
+CREATE DATABASE IF NOT EXISTS `ashoka_dereejudge` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `ashoka_dereejudge`;
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `judgments`
 --
+-- Creation: Aug 07, 2016 at 12:52 PM
+--
 
+DROP TABLE IF EXISTS `judgments`;
 CREATE TABLE IF NOT EXISTS `judgments` (
   `judgmentID` int(11) NOT NULL AUTO_INCREMENT,
   `userID` int(11) NOT NULL,
@@ -63,7 +68,10 @@ INSERT INTO `judgments` (`judgmentID`, `userID`, `professorID`, `yyyy`, `eloquen
 --
 -- Table structure for table `majors`
 --
+-- Creation: Aug 07, 2016 at 12:52 PM
+--
 
+DROP TABLE IF EXISTS `majors`;
 CREATE TABLE IF NOT EXISTS `majors` (
   `majorID` int(11) NOT NULL AUTO_INCREMENT,
   `majorName` varchar(40) NOT NULL,
@@ -104,7 +112,10 @@ INSERT INTO `majors` (`majorID`, `majorName`) VALUES
 --
 -- Table structure for table `professors`
 --
+-- Creation: Aug 07, 2016 at 12:52 PM
+--
 
+DROP TABLE IF EXISTS `professors`;
 CREATE TABLE IF NOT EXISTS `professors` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT '0',
@@ -360,7 +371,10 @@ INSERT INTO `professors` (`id`, `name`, `urlName`, `majorID`, `studies`, `info`,
 --
 -- Table structure for table `users`
 --
+-- Creation: Aug 07, 2016 at 12:52 PM
+--
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `userID` int(11) NOT NULL AUTO_INCREMENT,
   `userPassword` varchar(20) NOT NULL,
