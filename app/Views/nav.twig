@@ -47,24 +47,36 @@
 <div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:51px">
     <ul class="w3-navbar w3-left-align w3-large w3-theme">
         <li>
-            <a class="w3-padding-large w3-hover-teal w3-large" href="/selectProfessor">Judge!</a>
+            <a class="w3-padding-large w3-hover-teal w3-large" href="/selectProfessor">
+                <i class="material-icons ">gavel</i>&nbsp;&nbsp;Judge!
+            </a>
         </li>
         <li>
-            <a class="w3-padding-large w3-hover-teal w3-large" href="/selectProfessorToView">Professors!</a>
+            <a class="w3-padding-large w3-hover-teal w3-large" href="/selectProfessorToView">
+                <i class="material-icons">school</i>&nbsp;&nbsp;Professors
+            </a>
         </li>
         <li>
-            <a class="w3-padding-large w3-hover-teal w3-large" href="#">About!</a>
+            <a class="w3-padding-large w3-hover-teal w3-large" href="#">
+                <i class="material-icons">info_outline</i>&nbsp;&nbsp;About
+            </a>
         </li>
         <li>
-            <a class="w3-padding-large w3-hover-teal w3-large" href="#">Contact!</a>
+            <a class="w3-padding-large w3-hover-teal w3-large" href="#">
+                <i class="material-icons">mail_outline</i>&nbsp;&nbsp;Contact
+            </a>
         </li>
         {% if session.user is not null %}
             <li>
-                <a class="w3-padding-large w3-hover-teal w3-large" href="/logout">Log-out!</a>
+                <a class="w3-padding-large w3-hover-teal w3-large" href="/logout">
+                    <i class="material-icons">exit_to_app</i>&nbsp;&nbsp;Log-out
+                </a>
             </li>
         {% else %}
             <li>
-                <a class="w3-padding-large w3-hover-teal w3-large" href="/login">Login!</a>
+                <a class="w3-padding-large w3-hover-teal w3-large" href="/login">
+                    <i class="material-icons">account_circle</i>&nbsp;&nbsp;Login
+                </a>
             </li>
         {% endif %}
     </ul>
