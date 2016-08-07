@@ -35,7 +35,7 @@ class DB
      * @param string $username
      * @param string $password
      */
-//    public function __construct($servername = "127.0.0.1", $port = "33060", $dbname = "fab", $username = "homestead", $password = "secret")
+//    public function __construct($servername = "127.0.0.1", $port = "33060", $dbname = "FILL_IN!!!!!!", $username = "homestead", $password = "secret")
 //    {
 //        $this->servername = $servername;
 //        $this->port = $port;
@@ -49,7 +49,7 @@ class DB
     public function connect()
     {
         try {
-            $conn = new PDO("mysql:host=$this->host;port:$this->port;dbname=$this->host", $this->username, $this->password);
+            $conn = new PDO("mysql:host=$this->host;port:$this->port;dbname=$this->dbname", $this->username, $this->password);
             // set the PDO error mode to exception
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->conn = $conn;
@@ -61,7 +61,7 @@ class DB
 
     public function getUser($email, $password)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM ashoka_coursework.users WHERE userEmail LIKE :userEmail AND userPassword LIKE :userPassword");
+        $stmt = $this->conn->prepare("SELECT * FROM $this->dbname.users WHERE userEmail LIKE :userEmail AND userPassword LIKE :userPassword");
         $stmt->bindParam(':userEmail', $email);
         $stmt->bindParam(':userPassword', $password);
         $stmt->execute();
@@ -77,7 +77,7 @@ class DB
     {
         try {
             $stmt = $this->conn->prepare("
-INSERT INTO ashoka_coursework.users
+INSERT INTO $this->dbname.users
 (userEmail, userPassword)
 VALUES (:userEmail, :userPassword)");
             $stmt->bindParam(':userEmail', $data['email']);
@@ -105,7 +105,7 @@ VALUES (:userEmail, :userPassword)");
 
     public function getAllMajors()
     {
-        $stmt = $this->conn->prepare("SELECT * FROM ashoka_coursework.majors");
+        $stmt = $this->conn->prepare("SELECT * FROM $this->dbname.majors");
         $stmt->execute();
 
         // set the resulting array to associative
@@ -117,7 +117,7 @@ VALUES (:userEmail, :userPassword)");
 
     public function getAllProfessors()
     {
-        $stmt = $this->conn->prepare("SELECT * FROM ashoka_coursework.professors");
+        $stmt = $this->conn->prepare("SELECT * FROM $this->dbname.professors ORDER BY name");
         $stmt->execute();
 
         // set the resulting array to associative
@@ -130,7 +130,7 @@ VALUES (:userEmail, :userPassword)");
     public function passJudgment($data)
     {
         try {
-            $stmt = $this->conn->prepare("INSERT INTO ashoka_coursework.judgments (`userID`, `professorID`, `yyyy`, `eloquent`, `knowledgable`, `politeAndRespectful`, `helpfulAccessibleAndCaring`, `preparedAndPunctual`, `inspiringAndEngaging`, `comment`)
+            $stmt = $this->conn->prepare("INSERT INTO $this->dbname.judgments (`userID`, `professorID`, `yyyy`, `eloquent`, `knowledgable`, `politeAndRespectful`, `helpfulAccessibleAndCaring`, `preparedAndPunctual`, `inspiringAndEngaging`, `comment`)
     VALUES (:userID, :professorID, CURDATE(), :eloquent, :knowledgable, :politeAndRespectful, :helpfulAccessibleAndCaring, :preparedAndPunctual, :inspiringAndEngaging, :comment)");
             $stmt->bindParam(':userID', $_SESSION['userID']);
             $stmt->bindParam(':professorID', $data['professorID']);
@@ -155,8 +155,8 @@ VALUES (:userEmail, :userPassword)");
     public function getProfessorByID($id)
     {
         $stmt = $this->conn->prepare("
-SELECT * FROM ashoka_coursework.professors
-INNER JOIN ashoka_coursework.majors
+SELECT * FROM $this->dbname.professors
+INNER JOIN $this->dbname.majors
 ON professors.majorID=majors.majorID
 WHERE professors.id = :id");
         $stmt->bindParam(':id', $id);
@@ -172,8 +172,8 @@ WHERE professors.id = :id");
     public function getProfessorByUrlName($urlName)
     {
         $stmt = $this->conn->prepare("
-SELECT * FROM ashoka_coursework.professors
-INNER JOIN ashoka_coursework.majors
+SELECT * FROM $this->dbname.professors
+INNER JOIN $this->dbname.majors
 ON professors.majorID=majors.majorID
 WHERE professors.urlName LIKE :urlName");
         $stmt->bindParam(':urlName', $urlName);
@@ -188,7 +188,7 @@ WHERE professors.urlName LIKE :urlName");
 
     public function getJudgmentsForProfessorByID($id)
     {
-        $stmt = $this->conn->prepare("SELECT AVG(eloquent), AVG(knowledgable), AVG(politeAndRespectful), AVG(helpfulAccessibleAndCaring), AVG(preparedAndPunctual), AVG(inspiringAndEngaging) FROM ashoka_coursework.judgments WHERE professorID= :id ;");
+        $stmt = $this->conn->prepare("SELECT AVG(eloquent), AVG(knowledgable), AVG(politeAndRespectful), AVG(helpfulAccessibleAndCaring), AVG(preparedAndPunctual), AVG(inspiringAndEngaging) FROM $this->dbname.judgments WHERE professorID= :id ;");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
@@ -203,7 +203,7 @@ WHERE professors.urlName LIKE :urlName");
     {
         $stmt = $this->conn->prepare("
 SELECT judgmentID,userID,comment,likes
-FROM ashoka_coursework.judgments
+FROM $this->dbname.judgments
 WHERE professorID=:id AND comment<>''
 ORDER BY likes DESC ;");
         $stmt->bindParam(':id', $id);
@@ -219,7 +219,7 @@ ORDER BY likes DESC ;");
     public function updateProfessorUrlByID($id, $urlName)
     {
         try {
-            $stmt = $this->conn->prepare("UPDATE ashoka_coursework.professors SET urlName= :urlName WHERE id= :id");
+            $stmt = $this->conn->prepare("UPDATE $this->dbname.professors SET urlName= :urlName WHERE id= :id");
             $stmt->bindParam(':id', $id);
             $stmt->bindParam(':urlName', $urlName);
             $stmt->execute();
@@ -235,7 +235,7 @@ ORDER BY likes DESC ;");
     public function reportCommentByJudgmentID($id)
     {
         try {
-            $stmt = $this->conn->prepare("UPDATE ashoka_coursework.judgments SET reported=reported+1 WHERE judgmentID = :id");
+            $stmt = $this->conn->prepare("UPDATE $this->dbname.judgments SET reported=reported+1 WHERE judgmentID = :id");
             $stmt->bindParam(':id', $id);
             $stmt->execute();
 
@@ -250,7 +250,7 @@ ORDER BY likes DESC ;");
     public function unreportCommentByJudgmentID($id)
     {
         try {
-            $stmt = $this->conn->prepare("UPDATE ashoka_coursework.judgments SET reported=reported-1 WHERE judgmentID = :id");
+            $stmt = $this->conn->prepare("UPDATE $this->dbname.judgments SET reported=reported-1 WHERE judgmentID = :id");
             $stmt->bindParam(':id', $id);
             $stmt->execute();
 
@@ -265,8 +265,8 @@ ORDER BY likes DESC ;");
     public function findProfessorByName($theName)
     {
         $stmt = $this->conn->prepare("
-SELECT * FROM ashoka_coursework.professors
-INNER JOIN ashoka_coursework.majors
+SELECT * FROM $this->dbname.professors
+INNER JOIN $this->dbname.majors
 ON professors.majorID=majors.majorID
 WHERE professors.name LIKE '%$theName%'");
         $stmt->execute();
@@ -281,8 +281,8 @@ WHERE professors.name LIKE '%$theName%'");
     public function getProfessorByName($theName)
     {
         $stmt = $this->conn->prepare("
-SELECT * FROM ashoka_coursework.professors
-INNER JOIN ashoka_coursework.majors
+SELECT * FROM $this->dbname.professors
+INNER JOIN $this->dbname.majors
 ON professors.majorID=majors.majorID
 WHERE professors.name LIKE :theName");
         $stmt->bindParam(':theName', $theName);
@@ -298,7 +298,7 @@ WHERE professors.name LIKE :theName");
     public function getCountOfJudgments($profID)
     {
         $stmt = $this->conn->prepare("
-SELECT Count(*) AS totalCount FROM ashoka_coursework.judgments
+SELECT Count(*) AS totalCount FROM $this->dbname.judgments
 WHERE judgments.professorID = :id");
         $stmt->bindParam(':id', $profID);
         $stmt->execute();
@@ -313,7 +313,7 @@ WHERE judgments.professorID = :id");
     public function getReportedComments()
     {
         $stmt = $this->conn->prepare("
-SELECT * FROM ashoka_coursework.judgments
+SELECT * FROM $this->dbname.judgments
 WHERE reported > 0");
         $stmt->execute();
 
@@ -327,7 +327,7 @@ WHERE reported > 0");
     public function deleteCommentByID($id)
     {
         try {
-            $stmt = $this->conn->prepare("DELETE FROM ashoka_coursework.judgments WHERE judgmentID=:id");
+            $stmt = $this->conn->prepare("DELETE FROM $this->dbname.judgments WHERE judgmentID=:id");
             $stmt->bindParam(':id', $id);
             $stmt->execute();
 
@@ -352,7 +352,7 @@ WHERE reported > 0");
     public function unreportCommentByID($id)
     {
         try {
-            $stmt = $this->conn->prepare("UPDATE ashoka_coursework.judgments SET reported=0 WHERE judgmentID=:id");
+            $stmt = $this->conn->prepare("UPDATE $this->dbname.judgments SET reported=0 WHERE judgmentID=:id");
             $stmt->bindParam(':id', $id);
             $stmt->execute();
 
@@ -377,7 +377,7 @@ WHERE reported > 0");
     public function likeCommentByJudgmentID($id)
     {
         try {
-            $stmt = $this->conn->prepare("UPDATE ashoka_coursework.judgments SET likes=likes+1 WHERE judgmentID = :id");
+            $stmt = $this->conn->prepare("UPDATE $this->dbname.judgments SET likes=likes+1 WHERE judgmentID = :id");
             $stmt->bindParam(':id', $id);
             $stmt->execute();
 
@@ -392,7 +392,7 @@ WHERE reported > 0");
     public function unlikeCommentByJudgmentID($id)
     {
         try {
-            $stmt = $this->conn->prepare("UPDATE ashoka_coursework.judgments SET likes=likes-1 WHERE judgmentID = :id");
+            $stmt = $this->conn->prepare("UPDATE $this->dbname.judgments SET likes=likes-1 WHERE judgmentID = :id");
             $stmt->bindParam(':id', $id);
             $stmt->execute();
 

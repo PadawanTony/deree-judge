@@ -5,7 +5,7 @@ require_once __DIR__ . '/../app/setup.php';
 use Judge\Controllers;
 use Judge\Router;
 
-/** Load .env variables in production **/
+/** Load .env variables in development environment **/
 //$dotenv = new Dotenv\Dotenv(__DIR__ . '/../app/');
 //$dotenv->load();
 

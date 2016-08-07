@@ -7,11 +7,13 @@
 
             {% if errorMessage is not null %}
                 {% if success == true %}
-                    <div class="w3-container w3-section w3-pale-green w3-leftbar w3-border-green w3-text-theme-d1" style="text-align: center; max-width: 600px; margin: auto;">
+                    <div class="w3-container w3-section w3-pale-green w3-leftbar w3-border-green w3-text-theme-d1"
+                         style="text-align: center; max-width: 600px; margin: auto;">
                         <h3>{{ errorMessage }}</h3>
                     </div>
                 {% else %}
-                    <div class="w3-container w3-section w3-pale-red w3-leftbar w3-border-red w3-text-theme-d1" style="text-align: center; max-width: 600px; margin: auto;">
+                    <div class="w3-container w3-section w3-pale-red w3-leftbar w3-border-red w3-text-theme-d1"
+                         style="text-align: center; max-width: 600px; margin: auto;">
                         <h3>{{ errorMessage }}</h3>
                     </div>
                 {% endif %}
@@ -39,12 +41,12 @@
                 </div>
             </div>
 
-            <div class="w3-col s12 m4">
+            <div class="w3-col s12 m4" style="opacity: 0.5;">
                 <div class="w3-card-4 w3-margin w3-round index-card">
                     <a href="#">
                         <img src="/img/headshot3.jpg" style="width:100%">
                         <div class="w3-container w3-center">
-                            <p>Add a Professor!</p>
+                            <p><b>COMING SOON</b> - Add a Professor!</p>
                         </div>
                     </a>
                 </div>
@@ -55,3 +57,26 @@
 
 {% endblock content %}
 
+{% block scripts %}
+
+
+        $(document).ready(function () {
+            $(".index-card").on("mouseover", function () {
+                $(this).css({
+                    "background-color": "teal",
+                    "transition": "background-color 0.5s",
+                    " -webkit-transition": "background-color 0.5s"
+                });
+            });
+
+            $(".index-card").on("mouseout", function () {
+                $(this).css({
+                    "background-color": "white",
+                    "transition": "background-color 0.5s",
+                    " -webkit-transition": "background-color 0.5s"
+                });
+            });
+        });
+
+
+{% endblock scripts %}
