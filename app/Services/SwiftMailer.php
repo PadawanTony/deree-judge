@@ -55,7 +55,7 @@ class SwiftMailer
                 // Set the From address with an associative array
                 ->setFrom(array($cleanEmail))
                 // Set the To addresses with an associative array
-                ->setTo(array('support@codeburrow.com' => 'CodeBurrow Support Team'))
+                ->setTo(array('anthonykalogeropoulos@gmail.com' => 'CodeBurrow Support Team'))
                 // Give it a body
                 ->setBody("Sender's Email: " . $cleanEmail . "\n\n" . $cleanMessage);
 
