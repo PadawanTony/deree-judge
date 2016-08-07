@@ -5,6 +5,7 @@ use ChromePhp;
 use Judge\Database\DB;
 use Judge\Models\User;
 use Judge\Services\InvertNamesToUrl;
+use Judge\Services\SwiftMailer;
 use Judge\Transformers\JudgmentsTransformer;
 
 class MainController extends Controller
@@ -104,9 +105,18 @@ class MainController extends Controller
         }
     }
 
-    public function contact()
+    public function contact($result=null)
     {
-        echo $this->twig->render('contact.twig');
+        echo $this->twig->render('contact.twig', array('result' => $result));
+    }
+
+    public function postContact()
+    {
+        $mailer = new SwiftMailer();
+
+        $result = $mailer->sendEmail($_POST);
+
+        $this->contact($result);
     }
 
     public function error404()

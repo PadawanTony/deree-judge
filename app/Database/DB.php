@@ -14,7 +14,7 @@ class DB
     protected $conn;
 
     /**
-     * DB constructor. By default connect to papaki.gr DB (MySQL) and to the 'fab' database schema.
+     * DB constructor. By default connect to DEREE's DB (MySQL) and to the 'deree-judge' database schema.
      */
     public function __construct()
     {

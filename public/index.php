@@ -45,6 +45,7 @@ $router->post('/report-comment', 'MainController', 'reportComment');
 $router->post('/unreport-comment', 'MainController', 'unreportComment');
 $router->post('/like-comment', 'MainController', 'likeComment');
 $router->post('/unlike-comment', 'MainController', 'unlikeComment');
+$router->post('/postContact', 'MainController', 'postContact');
 //Admin
 $router->post('/admin/login', 'AdminController', 'postLogin');
 $router->post('/admin/postReviewComments', 'AdminController', 'postReviewComments');
